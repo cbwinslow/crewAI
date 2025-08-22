@@ -15,7 +15,7 @@ def fetch_agent_definition(url: str, client: Optional[httpx.Client] = None) -> A
     if client is None:
         client = httpx.Client()
         close = True
-    response = client.get(url)
+    response = client.get(url, timeout=10)
     response.raise_for_status()
     data = response.json()
     agent = Agent(**data)
