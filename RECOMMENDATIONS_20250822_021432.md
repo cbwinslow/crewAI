@@ -1,0 +1,4 @@
+- Consider adding asynchronous support to RabbitMQMessageBus for scalability.
+- Provide configurable authentication for RabbitMQ connections.
+- Expand prebuilt crews with task definitions to showcase end-to-end workflows.
+- Add command-line utility to list and deploy prebuilt crews.

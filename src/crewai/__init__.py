@@ -2,11 +2,18 @@ import warnings
 
 from crewai.agent import Agent
 from crewai.crew import Crew
-from crewai.crews.crew_output import CrewOutput
+from crewai.crews import CrewOutput
 from crewai.flow.flow import Flow
 from crewai.knowledge.knowledge import Knowledge
 from crewai.llm import LLM
 from crewai.llms.base_llm import BaseLLM
+from crewai.messaging import (
+    CommunicationLogger,
+    InMemoryMessageBus,
+    MessageBus,
+    RabbitMQMessageBus,
+)
+from crewai.orchestrator import AIOrchestrator
 from crewai.process import Process
 from crewai.task import Task
 from crewai.tasks.llm_guardrail import LLMGuardrail
@@ -31,4 +38,9 @@ __all__ = [
     "Knowledge",
     "TaskOutput",
     "LLMGuardrail",
+    "AIOrchestrator",
+    "MessageBus",
+    "InMemoryMessageBus",
+    "RabbitMQMessageBus",
+    "CommunicationLogger",
 ]
