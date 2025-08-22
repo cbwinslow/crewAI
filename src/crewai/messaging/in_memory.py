@@ -18,10 +18,14 @@ class InMemoryMessageBus(MessageBus):
         self._queues[queue].append(message)
 
     def consume(self, queue: str, callback: Callable[[str], None]) -> None:
-        messages = list(self._queues.get(queue, []))
-        self._queues[queue] = []
-        for message in messages:
-            callback(message)
-
+        q = self._queues.get(queue, [])
+        while q:
+            message = q.pop(0)  # FIFO
+            try:
+                callback(message)
+            except Exception:
+                # Put the failing message back at the front and propagate
+                q.insert(0, message)
+                raise
     def close(self) -> None:
         self._queues.clear()
