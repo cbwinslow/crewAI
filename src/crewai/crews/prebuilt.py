@@ -9,6 +9,14 @@ from ..crew import Crew
 
 
 def _research_crew() -> Crew:
+    """
+    Create a two-agent Crew configured for research tasks.
+    
+    Returns:
+        Crew: A Crew containing two Agents in order:
+            - Researcher: goal "Gather up-to-date information from the web"; backstory: "Expert at finding and summarizing information".
+            - Writer: goal "Produce clear summaries of research"; backstory: "Turns raw data into digestible reports".
+    """
     researcher = Agent(
         role="Researcher",
         goal="Gather up-to-date information from the web",
@@ -23,6 +31,12 @@ def _research_crew() -> Crew:
 
 
 def _coding_crew() -> Crew:
+    """
+    Create a two-member coding crew.
+    
+    Returns:
+        Crew: A Crew containing a Planner agent (designs software solutions) and a Coder agent (implements tasks; has code execution enabled), in that order.
+    """
     planner = Agent(
         role="Planner",
         goal="Design software solutions",
@@ -38,6 +52,15 @@ def _coding_crew() -> Crew:
 
 
 def _support_crew() -> Crew:
+    """
+    Create a support Crew composed of a Helper and a Triage agent.
+    
+    Helper: answers user questions with a friendly, helpful disposition.
+    Triage: detects when issues are complex and routes them to specialists.
+    
+    Returns:
+        Crew: A new Crew containing the Helper then the Triage agent (in that order).
+    """
     helper = Agent(
         role="Helper",
         goal="Answer user questions",
@@ -59,7 +82,18 @@ PREBUILT_CREWS: Dict[str, Callable[[], Crew]] = {
 
 
 def get_prebuilt_crew(name: str) -> Crew:
-    """Return a preconfigured crew by name."""
+    """
+    Return a newly constructed prebuilt Crew by name.
+    
+    Parameters:
+        name (str): Prebuilt crew identifier; one of "research", "coding", or "support".
+    
+    Returns:
+        Crew: A new Crew instance configured for the requested role.
+    
+    Raises:
+        ValueError: If `name` is not a known prebuilt crew.
+    """
     try:
         return PREBUILT_CREWS[name]()
     except KeyError as exc:

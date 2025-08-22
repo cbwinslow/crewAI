@@ -9,6 +9,12 @@ def test_in_memory_message_bus_and_logger(tmp_path):
     bus.publish("queue", "hello")
 
     def consumer(msg: str) -> None:
+        """
+        Consumer callback that logs received messages to the CommunicationLogger under the "queue" queue.
+        
+        Parameters:
+            msg (str): The message payload received from the message bus; this is recorded via logger.log("queue", msg).
+        """
         logger.log("queue", msg)
 
     bus.consume("queue", consumer)
